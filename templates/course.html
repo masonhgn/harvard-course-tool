@@ -1,0 +1,60 @@
+<!-- templates/course.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+</head>
+<body>
+    <h1>Course Details</h1>
+    
+    <h2>{{ course.course_title }}</h2>
+    <p><strong>Course ID:</strong> {{ course.course_id }}</p>
+    <p><strong>Course Name:</strong> {{ course.course_name }}</p>
+    <p><strong>Course Section Code:</strong> {{ course.course_section_code }}</p>
+    <p><strong>Course Department:</strong> {{ course.course_department }}</p>
+
+    <h3>Instructors</h3>
+    <ul>
+        {% for instructor in course.instructors %}
+            <li>
+                <a href="{{ url_for('instructor', slug=generate_slug(instructor)) }}">{{ instructor }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Enrollment Metrics</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Term</th>
+                <th>Undergrad</th>
+                <th>Grad</th>
+                <th>Non-Degree</th>
+                <th>XReg</th>
+                <th>VUS</th>
+                <th>Employee</th>
+                <th>Withdraw</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for term, value in course.ugrad.items() %}
+            <tr>
+                <td>{{ term }}</td>
+                <td>{{ course.ugrad[term] }}</td>
+                <td>{{ course.grad[term] }}</td>
+                <td>{{ course.nondegree[term] }}</td>
+                <td>{{ course.xreg[term] }}</td>
+                <td>{{ course.vus[term] }}</td>
+                <td>{{ course.employee[term] }}</td>
+                <td>{{ course.withdraw[term] }}</td>
+                <td>{{ course.total[term] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

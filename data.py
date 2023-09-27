@@ -16,7 +16,9 @@ def generate_slug(name):
     
     return slug
 
-
+def format_name(name):
+    last_name, first_name = name.split(',')
+    return f"{first_name} {last_name}"
 
 
 def process_courses(file_path, course_map, term):
@@ -24,12 +26,15 @@ def process_courses(file_path, course_map, term):
     df = pd.read_csv(file_path, header=3).dropna()
     for index, row in df.iterrows():
 
+        instructor_name = format_name(row['Instructor Full Name'])
+
+
         if row["Course ID"] in course_map:
             found_course = course_map[row["Course ID"]]
 
             #add instructor if not already added
-            if row["Instructor Full Name"] not in found_course.instructors:
-                found_course.instructors.append(row["Instructor Full Name"])
+            if instructor_name not in found_course.instructors:
+                found_course.instructors.append(instructor_name)
 
             #add enrollment numbers for undergrad
             if term in found_course.ugrad: found_course.ugrad[term] += row["UGrad"]
@@ -70,7 +75,7 @@ def process_courses(file_path, course_map, term):
                 row['Course Name'],
                 row['Course Section Code'],
                 row['Course Department'],
-                [row['Instructor Full Name']],
+                [instructor_name],
                 {term : row['UGrad']},
                 {term : row['Grad']},
                 {term : row['NonDegree']},
@@ -99,10 +104,11 @@ def process_instructors(file_path, instructor_map, term):
         withdraw_num = 0 if pd.isna(row['Withdraw']) else int(row['Withdraw'])
         total_num = 0 if pd.isna(row['Total']) else int(row['Total'])
 
+        instructor_name = format_name(row['Instructor Full Name'])
 
         #if instructor is already in map
-        if row['Instructor Full Name'] in instructor_map:
-            found_instructor = instructor_map[row['Instructor Full Name']]
+        if instructor_name in instructor_map:
+            found_instructor = instructor_map[instructor_name]
 
             #if course is already stored for that professor
             if row['Course ID'] in found_instructor.courses_taught:
@@ -164,8 +170,8 @@ def process_instructors(file_path, instructor_map, term):
         else:
             #make an instructor
             instructor = Instructor(
-                generate_slug(row['Instructor Full Name']),
-                row['Instructor Full Name'],
+                generate_slug(instructor_name),
+                instructor_name,
                 {row['Course ID']: [term]},
                 [row['Course Department']],
                 {term : ugrad_num},
@@ -178,7 +184,7 @@ def process_instructors(file_path, instructor_map, term):
                 {term : total_num},
             )
 
-            instructor_map[row['Instructor Full Name']] = instructor
+            instructor_map[instructor_name] = instructor
                 
 
 

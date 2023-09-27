@@ -47,3 +47,29 @@ def instructor(slug):
     else:
         # Alternatively, return a 404 error if the instructor is not found
         return "Instructor not found", 404
+
+
+
+@app.context_processor
+def utility_processor():
+    def slugify(instr):
+        return generate_slug(instr)
+    return dict(generate_slug=slugify)
+
+
+@app.route('/course/<course_id>')
+def course_details(course_id):
+    # Fetch the course object from the database using course_id
+    course = courses_collection.find_one({"course_id": course_id})
+    if not course:
+        return "Course not found", 404
+
+    return render_template('course.html', course=course)
+
+
+@app.route('/courses')
+def all_courses():
+    # Fetch all the courses from the database
+    courses = list(courses_collection.find())
+
+    return render_template('courses_list.html', courses=courses)
