@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .info-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Instructor Profile: {{ instructor.name }}</h1>
+
+    <div class="info-section">
+        <h2>Departments</h2>
+        <ul>
+            {% for dept in instructor.departments %}
+                <li>{{ dept }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="info-section">
+        <h2>Courses Taught</h2>
+        <table border="1">
+            <tr>
+                <th>Course ID</th>
+                <th>Semesters Taught</th>
+            </tr>
+            {% for course_id, semesters in instructor.courses_taught.items() %}
+                <tr>
+                    <td>{{ course_id }}</td>
+                    <td>{{ ', '.join(semesters) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="info-section">
+        <h2>Enrollment Data</h2>
+        <table border="1">
+            <tr>
+                <th>Term</th>
+                <th>Undergraduates</th>
+                <th>Graduates</th>
+                <th>NonDegree</th>
+                <th>XReg</th>
+                <th>VUS</th>
+                <th>Employee</th>
+                <th>Withdrawn</th>
+                <th>Total</th>
+            </tr>
+            {% for term, ugrad_count in instructor.ugrad.items() %}
+                <tr>
+                    <td>{{ term }}</td>
+                    <td>{{ ugrad_count }}</td>
+                    <td>{{ instructor.grad[term] }}</td>
+                    <td>{{ instructor.nondegree[term] }}</td>
+                    <td>{{ instructor.xreg[term] }}</td>
+                    <td>{{ instructor.vus[term] }}</td>
+                    <td>{{ instructor.employee[term] }}</td>
+                    <td>{{ instructor.withdraw[term] }}</td>
+                    <td>{{ instructor.total[term] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+
+</body>
+</html>

@@ -34,4 +34,22 @@ class Course:
         self.total = total
 
 
-    # Any additional methods or functionalities can be added below
+    def __str__(self):
+        instructor_names = ', '.join([instr for instr in self.instructors])
+        return (f"Course ID: {self.course_id}\n"
+                f"Course Title: {self.course_title}\n"
+                f"Course Name: {self.course_name}\n"
+                f"Course Section Code: {self.course_section_code}\n"
+                f"Course Department: {self.course_department}\n"
+                f"Instructors: {instructor_names}\n"
+                f"UGrad Enrollments: {self.ugrad}\n"
+                f"Grad Enrollments: {self.grad}\n"
+                f"Non-Degree Enrollments: {self.nondegree}\n"
+                f"XReg Enrollments: {self.xreg}\n"
+                f"VUS Enrollments: {self.vus}\n"
+                f"Employee Enrollments: {self.employee}\n"
+                f"Withdrawals: {self.withdraw}\n"
+                f"Total Enrollments: {self.total}")
+
+    def to_dict(self):
+        return self.__dict__
