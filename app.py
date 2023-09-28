@@ -1,14 +1,25 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
 from pymongo import MongoClient
+from data import generate_slug
+
 from data import initialize_data, generate_slug
 app = Flask(__name__)
+
+#to start mongod on mac using home directory db folder:
+#mongod --dbpath ~/mongodb-data
+
+#anywhere else:
+#mongod
+
 
 client = MongoClient('localhost', 27017)
 
 db = client.flask_db
 todos = db.todos
 
+
 instructors, courses = initialize_data()
+
 
 
 
@@ -16,18 +27,33 @@ instructors, courses = initialize_data()
 instructors_collection = db["instructors"]
 courses_collection = db["courses"]
 
-
 '''
 instructors_collection.insert_many(instructors)
 courses_collection.insert_many(courses)
 '''
 
+@app.route('/search')
+def search():
+    query = request.args.get('q')
+    if not query:
+        return jsonify({"error": "Query not provided"}), 400
 
+    # Query the courses and instructors (limiting to 10 results each for example)
+    courses = list(courses_collection.find({"course_name": {"$regex": query, "$options": "i"}}).limit(10))
+    instructors = list(instructors_collection.find({"name": {"$regex": query, "$options": "i"}}).limit(10))
 
+    # Convert MongoDB results to a list of dictionaries (ignoring ObjectId)
+    courses_results = [{"course_name": c["course_name"]} for c in courses]
+    instructors_results = [{"name": i["name"]} for i in instructors]
+
+    return jsonify({"courses": courses_results, "instructors": instructors_results})
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
-    return render_template('index.html', num_instructors = len(instructors))
+    course_names = ['(' + course['course_title'] + ') ' + course['course_name'] + ' [' +course['course_id'] + ']' for course in courses_collection.find()]
+    instructor_names = [instructor['name'] for instructor in instructors_collection.find()]
+    collection = course_names + instructor_names
+    return render_template('index.html', collection=collection)
 
 
 @app.route('/instructors', methods=['GET'])
@@ -50,12 +76,6 @@ def instructor(slug):
 
 
 
-@app.context_processor
-def utility_processor():
-    def slugify(instr):
-        return generate_slug(instr)
-    return dict(generate_slug=slugify)
-
 
 @app.route('/course/<course_id>')
 def course_details(course_id):
@@ -73,3 +93,17 @@ def all_courses():
     courses = list(courses_collection.find())
 
     return render_template('courses_list.html', courses=courses)
+
+
+@app.route('/slugify', methods=['POST'])
+def slugify():
+    instructor_name = request.form.get('instructor_name')
+    # Use your existing slugify function to generate the slug
+    slug = generate_slug(instructor_name)
+    return slug
+
+@app.context_processor
+def utility_processor():
+    def slugify(instr):
+        return generate_slug(instr)
+    return dict(generate_slug=slugify)

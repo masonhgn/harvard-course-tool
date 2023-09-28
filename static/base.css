@@ -1,0 +1,105 @@
+/* Base Styles */
+body, h1, p {
+    font-family: 'Assistant', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    position: relative;
+    height: 100px; /* Default height for regular screens */
+}
+
+.header {
+    margin-top: 10px;
+    height: 100px;
+    line-height: 100px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    opacity: 0.7;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-right {
+    background-color: #DC143C;
+    right: 0;
+    left: 5%;
+    z-index: 2; /* Adjusted z-index to make it overlap */
+}
+
+.header-left {
+    background-color: #B22222;
+    left: 0;
+    right: 5%;
+    transform: translateY(15px);
+    z-index: 2; /* Adjusted z-index to make it overlap */
+}
+
+.logo {
+    width: 95%; /* Limit the width of the logo container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3; /* Above the headers */
+    color: white;
+    font-size: 3vw;
+    opacity: 1;
+    transform: translate(-50%, -50%); /* Adjust to center both vertically and horizontally */
+}
+
+.content {
+    top: 4vh;
+    padding: 20px;
+    position: relative;
+}
+
+
+
+footer {
+    opacity: 0.7;
+    background-color: #DC143C; /* Red background color */
+    color: white; /* Text color */
+    padding: 10px; /* Add some padding for better spacing */
+    text-align: center; /* Center-align the text */
+    height: 10%; /* Set the height of the footer */
+    width: 100%;
+    line-height: 1.5; /* Adjust the line height for better text spacing */
+    position: fixed; /* Position as fixed */
+    bottom: 0;
+}
+
+
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .header {
+        line-height: 15vh;
+        align-items: center; /* Add vertical alignment for smaller screens */
+    }
+
+    .header-left {
+        left: 0;
+        right: 5%;
+    }
+
+    .header-right {
+        right: 0;
+        left: 5%;
+    }
+
+    .content {
+        top: 4vh;
+    }
+
+    .logo {
+        font-size: 7vw; /* Adjusted font size for smaller screens */
+        min-font-size: 16px; /* Minimum font size to avoid text becoming too small */
+        transform: translate(-50%, -50%); /* Adjust to center both vertically and horizontally */
+        width: 95%; /* Allow the logo container to expand its width */
+    }
+    
+}

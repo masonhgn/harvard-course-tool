@@ -1,13 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Index Page</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Welcome to the Course Portal</h1>
 
-<p>There are currently {{ num_instructors }} instructors available.</p>
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
 
-</body>
-</html>
+    <div class="search-container">
+        <form id="search-form">
+            <input type="text" id="search-bar" placeholder="Search for a course or instructor...">
+            <button type="submit">Search</button> <!-- Added 'Search' text to button -->
+        </form>
+    </div>
+    
+    <div id="results"></div>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            var availableSections = {{ collection|default([])|tojson|safe }};
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
+            
+            // Function to construct the URL for an instructor
+            function getInstructorURL(instr) {
+                // Make an AJAX request to get the instructor's slug
+                $.ajax({
+                    url: '/slugify',
+                    type: 'POST',
+                    data: { instructor_name: instr },
+                    success: function(slug) {
+                        // Construct the instructor URL using the retrieved slug
+                        var instructorURL = '/instructor/' + slug;
+                        window.location.href = instructorURL;
+                    },
+                    error: function(error) {
+                        console.error("Error generating instructor slug:", error);
+                    }
+                });
+            }
+
+            // Function to construct the URL for a course
+            function getCourseURL(course) {
+                // Assuming 'course' contains the course name with the course code in square brackets at the end
+                var courseCodeMatch = course.match(/\[(.*?)\]$/);
+                var courseCode = courseCodeMatch ? courseCodeMatch[1] : '';
+                return '/course/' + courseCode; // Modify this based on your URL structure
+            }
+
+            $("#search-bar")
+                .on("keydown", function(event) {
+                    if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function(request, response) {
+                        // Filter and limit the suggestions to 10
+                        var filteredSuggestions = $.ui.autocomplete.filter(availableSections, extractLast(request.term)).slice(0, 10);
+                        response(filteredSuggestions);
+                    },
+                    focus: function() {
+                        return false;
+                    },
+                    select: function(event, ui) {
+                        var terms = split(this.value);
+                        terms.pop();
+                        terms.push(ui.item.value);
+                        terms.push("");
+                        this.value = terms.join(" ");
+                        
+                        // Check if the selected item is a course or instructor
+                        var selectedValue = ui.item.value;
+                        var isCourse = /\(.*?\)/.test(selectedValue); // Assumes courses have course codes in parentheses
+                        
+                        if (isCourse) {
+                            // Construct and navigate to the course URL
+                            var courseURL = getCourseURL(selectedValue);
+                            window.location.href = courseURL;
+                        } else {
+                            // Construct and navigate to the instructor URL
+                            var instructorURL = getInstructorURL(selectedValue);
+                            window.location.href = instructorURL;
+                        }
+                        return false;
+                    }
+                });
+        });
+    </script>
+    
+    
+    
+{% endblock %}
