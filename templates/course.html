@@ -1,12 +1,6 @@
-<!-- templates/course.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course.css') }}">
     <h1>Course Details</h1>
     
     <h2>{{ course.course_title }}</h2>
@@ -18,17 +12,27 @@
     <h3>Instructors</h3>
     <ul>
         {% for instructor in course.instructors %}
-            <li>
+            <li class="instructor-tag">
                 <a href="{{ url_for('instructor', slug=generate_slug(instructor)) }}">{{ instructor }}</a>
             </li>
         {% endfor %}
     </ul>
 
     <h3>Enrollment Metrics</h3>
+
+    <div class="dropdown-container">
+        <label for="semesterSelect">Select Term: </label>
+        <select id="semesterSelect">
+            {% for term, value in course.ugrad.items() %}
+                <option value="{{ term }}">{{ term[:-4] | capitalize }} {{ term[-4:] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
     <table border="1">
         <thead>
             <tr>
-                <th>Term</th>
+                <th>Total</th>
                 <th>Undergrad</th>
                 <th>Grad</th>
                 <th>Non-Degree</th>
@@ -36,25 +40,60 @@
                 <th>VUS</th>
                 <th>Employee</th>
                 <th>Withdraw</th>
-                <th>Total</th>
             </tr>
         </thead>
-        <tbody>
-            {% for term, value in course.ugrad.items() %}
-            <tr>
-                <td>{{ term }}</td>
-                <td>{{ course.ugrad[term] }}</td>
-                <td>{{ course.grad[term] }}</td>
-                <td>{{ course.nondegree[term] }}</td>
-                <td>{{ course.xreg[term] }}</td>
-                <td>{{ course.vus[term] }}</td>
-                <td>{{ course.employee[term] }}</td>
-                <td>{{ course.withdraw[term] }}</td>
-                <td>{{ course.total[term] }}</td>
-            </tr>
-            {% endfor %}
+        <tbody id="semesterData">
+            <!-- The data for the selected semester will be populated here by JavaScript -->
         </tbody>
     </table>
+    
+    
 
-</body>
-</html>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const semesterSelect = document.getElementById('semesterSelect');
+            const semesterData = document.getElementById('semesterData');
+            
+            const courseData = {
+                // Assuming you can pass the entire course data object to the frontend
+                // Replace this with the actual data structure you're using
+                // This is just an example to demonstrate the functionality
+                total: {{ course.total | tojson }},
+                ugrad: {{ course.ugrad | tojson }},
+                grad: {{ course.grad | tojson }},
+                nondegree: {{ course.nondegree | tojson }},
+                xreg: {{ course.xreg | tojson }},
+                vus: {{ course.vus | tojson }},
+                employee: {{ course.employee | tojson }},
+                withdraw: {{ course.withdraw | tojson }}
+            };
+
+            function updateTable() {
+                const selectedTerm = semesterSelect.value;
+                let tableRow = `
+                    <tr>
+                        <td data-label="Undergrad">${courseData.ugrad[selectedTerm]}</td>
+                        <td data-label="Grad">${courseData.grad[selectedTerm]}</td>
+                        <td data-label="Non-Degree">${courseData.nondegree[selectedTerm]}</td>
+                        <td data-label="XReg">${courseData.xreg[selectedTerm]}</td>
+                        <td data-label="VUS">${courseData.vus[selectedTerm]}</td>
+                        <td data-label="Employee">${courseData.employee[selectedTerm]}</td>
+                        <td data-label="Withdraw">${courseData.withdraw[selectedTerm]}</td>
+                        <td data-label="Total">${courseData.total[selectedTerm]}</td>
+                    </tr>
+                `;
+
+                semesterData.innerHTML = tableRow;
+            }
+
+
+
+            semesterSelect.addEventListener('change', updateTable);
+            updateTable(); // Initial table data load
+        });
+
+    </script>
+
+
+{% endblock %}

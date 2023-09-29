@@ -4,6 +4,15 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p style="text-align: center; color: rgb(75, 75, 75);">Harvard EasySearch is a modern, easy to use database of all Harvard courses and instructors.</p>
+
+    <p style="text-align: center; color: rgb(75, 75, 75);">Use the search bar below to find any course or instructor.</p>
+
     <div class="search-container">
         <form id="search-form">
             <input type="text" id="search-bar" placeholder="Search for a course or instructor...">
@@ -11,7 +20,19 @@
         </form>
     </div>
     
-    <div id="results"></div>
+    <div id="results">
+        <table id="search-results-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Search results will be appended here -->
+            </tbody>
+        </table>
+    </div>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -50,47 +71,40 @@
                 var courseCodeMatch = course.match(/\[(.*?)\]$/);
                 var courseCode = courseCodeMatch ? courseCodeMatch[1] : '';
                 return '/course/' + courseCode; // Modify this based on your URL structure
-            }
+            } 
+            $("#search-bar").autocomplete({
+                minLength: 0,
+                source: function(request, response) {
+                    var filteredSuggestions = $.ui.autocomplete.filter(availableSections, extractLast(request.term)).slice(0, 10);
+                    
+                    // Clear the table
+                    $("#search-results-table tbody").empty();
 
-            $("#search-bar")
-                .on("keydown", function(event) {
-                    if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
-                        event.preventDefault();
-                    }
-                })
-                .autocomplete({
-                    minLength: 0,
-                    source: function(request, response) {
-                        // Filter and limit the suggestions to 10
-                        var filteredSuggestions = $.ui.autocomplete.filter(availableSections, extractLast(request.term)).slice(0, 10);
-                        response(filteredSuggestions);
-                    },
-                    focus: function() {
-                        return false;
-                    },
-                    select: function(event, ui) {
-                        var terms = split(this.value);
-                        terms.pop();
-                        terms.push(ui.item.value);
-                        terms.push("");
-                        this.value = terms.join(" ");
-                        
-                        // Check if the selected item is a course or instructor
-                        var selectedValue = ui.item.value;
-                        var isCourse = /\(.*?\)/.test(selectedValue); // Assumes courses have course codes in parentheses
-                        
-                        if (isCourse) {
-                            // Construct and navigate to the course URL
-                            var courseURL = getCourseURL(selectedValue);
-                            window.location.href = courseURL;
-                        } else {
-                            // Construct and navigate to the instructor URL
-                            var instructorURL = getInstructorURL(selectedValue);
-                            window.location.href = instructorURL;
-                        }
-                        return false;
-                    }
-                });
+                    // Populate the table with results
+                    $.each(filteredSuggestions, function(index, suggestion) {
+                        var isCourse = /\(.*?\)/.test(suggestion);
+                        var type = isCourse ? "🎓 Course" : "🧑‍🏫 Instructor";
+                        var row = `<tr><td class="search-result-item" data-type="${type}">${suggestion}</td><td>${type}</td></tr>`;
+                        $("#search-results-table tbody").append(row);
+                    });
+
+                    // No need to use the default response callback since we're not using a dropdown
+                }
+            });
+
+            // Handle clicks on search results
+            $("#search-results-table").on("click", ".search-result-item", function() {
+                var selectedValue = $(this).text();
+                var type = $(this).data("type");
+
+                if (type === "🎓 Course") {
+                    var courseURL = getCourseURL(selectedValue);
+                    window.location.href = courseURL;
+                } else {
+                    getInstructorURL(selectedValue);  // We've modified this function to handle redirection
+                }
+            });
+
         });
     </script>
     

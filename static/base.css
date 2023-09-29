@@ -1,5 +1,17 @@
+
+body {
+    font-family: 'Assistant', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+
 /* Base Styles */
-body, h1, p {
+h1, p {
     font-family: 'Assistant', sans-serif;
     margin: 0;
     padding: 0;
@@ -55,6 +67,7 @@ body, h1, p {
     top: 4vh;
     padding: 20px;
     position: relative;
+    flex: 1;
 }
 
 
@@ -65,11 +78,16 @@ footer {
     color: white; /* Text color */
     padding: 10px; /* Add some padding for better spacing */
     text-align: center; /* Center-align the text */
-    height: 10%; /* Set the height of the footer */
+    height: 50%; /* Set the height of the footer */
     width: 100%;
     line-height: 1.5; /* Adjust the line height for better text spacing */
-    position: fixed; /* Position as fixed */
     bottom: 0;
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+
+footer p {
+    font-size: 16px;
 }
 
 
@@ -100,6 +118,10 @@ footer {
         min-font-size: 16px; /* Minimum font size to avoid text becoming too small */
         transform: translate(-50%, -50%); /* Adjust to center both vertically and horizontally */
         width: 95%; /* Allow the logo container to expand its width */
+    }
+
+    footer p {
+        font-size: 10px;
     }
     
 }

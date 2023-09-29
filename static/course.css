@@ -1,0 +1,185 @@
+.content {
+    width: 70%;
+    margin: 0 auto;
+}
+
+h2, h3 {
+    font-family: 'Assistant', sans-serif;
+    margin-top: 20px;
+    color: #555;
+}
+
+h3 {
+    margin-top: 40px;
+    border-bottom: 2px solid #B22222;
+    padding-bottom: 5px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+    display: flex;      /* Use Flexbox to line up the items horizontally */
+    flex-wrap: wrap;    /* Allow wrapping to next line if too many items */
+}
+
+li {
+    padding: 5px 0;
+    display: inline-block;  /* Display the list items side by side */
+}
+
+.instructor-tag {
+    text-decoration: none;
+    display: inline-flex;    /* Updated from inline-block */
+    padding: 5px 15px;
+    background-color: #5d85af;
+    color: #fff;
+    border-radius: 20px;
+    margin: 5px 5px 5px 0;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+    align-items: center;    /* Align content in the center vertically */
+}
+
+.instructor-tag a {
+    color: #fff; /* This will make the text inside the pill tag white */
+    text-decoration: none; /* Removes the underline from the hyperlink */
+}
+
+
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Compact table styling */
+
+table {
+    width: 100%; /* Ensure it occupies the full width of its parent container */
+    table-layout: auto; /* Let columns adjust their width based on content */
+    border-collapse: collapse; /* Combine adjacent borders */
+}
+
+th, td {
+    padding: 4px 8px; /* Reduced padding */
+    text-align: center; /* Center-align text for better aesthetics */
+    border: 1px solid #ddd; /* Border to visually separate cells */
+    font-size: 0.9em; /* Slightly reduce font size */
+}
+
+th {
+    background-color: #c55858; /* Light background for headers */
+    font-weight: bold;
+}
+
+/* Handle longer content */
+td {
+    word-wrap: break-word; /* Allow wrapping inside cells */
+    max-width: 80px; /* Set a max-width to ensure compactness */
+}
+
+
+tbody tr:hover {
+    background-color: #f7f7f7;
+}
+
+
+/* Dropdown styling */
+.dropdown-container {
+    margin: 20px 0;
+    display: inline-block;
+}
+
+.dropdown-container label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#semesterSelect {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#semesterSelect:hover {
+    background-color: #e0e0e0;
+}
+
+#semesterSelect:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+    
+    h2, h3 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+
+    /* Table Layout on Mobile */
+    table, tbody {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    thead {
+        display: none;  
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 0.625rem;
+    }
+
+    td {
+        border-top: 1px solid #ddd;
+        display: block;
+        padding: 10px;
+        font-size: 1rem;
+        position: relative;
+        padding-left: 85%;
+    }
+
+    td:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    td:before {
+        content: attr(data-label);
+        display: block;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        color: #555;
+        background-color: #f9f9f9;
+        padding: 5px;
+    }
+}
+
+

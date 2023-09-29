@@ -77,6 +77,16 @@ def instructor(slug):
 
 
 
+def course_summary(course):
+    #this class has mostly been taken by grad students, taking up X% of the enrollment across all semesters.
+    #retention rate
+    #
+
+
+
+
+
+
 @app.route('/course/<course_id>')
 def course_details(course_id):
     # Fetch the course object from the database using course_id
