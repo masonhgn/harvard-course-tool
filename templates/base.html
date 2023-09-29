@@ -18,6 +18,8 @@
 
     <!-- Main content placeholder for pages that inherit from this base -->
     <div class="content">
+        <button class="home-button" onclick="window.location.href='{{ url_for('index') }}'">Back to Search</button>
+
         {% block content %}{% endblock %}
     </div>
 

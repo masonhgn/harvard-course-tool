@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course.css') }}">
-    <h1>Course Details</h1>
-    
-    <h2>{{ course.course_title }}</h2>
-    <p><strong>Course ID:</strong> {{ course.course_id }}</p>
-    <p><strong>Course Name:</strong> {{ course.course_name }}</p>
-    <p><strong>Course Section Code:</strong> {{ course.course_section_code }}</p>
-    <p><strong>Course Department:</strong> {{ course.course_department }}</p>
+    <br>
+    <h1 style="text-align: center;">{{ course.course_name }}</h1>
+    <!-- Add a gray pill-shaped tag for the Course ID -->
+    <h2 style="font-weight: bold; text-align: center;">
+        {{ course.course_title }}
+        <span class="course-id-tag">{{ course.course_id }}</span>
+    </h2>
+
+    <h3>Enrollment Metrics</h3>
+
+    {% for note in notes %}
+        <p style="text-align: center;">{{note}}</p>
+    {% endfor %}
 
     <h3>Instructors</h3>
     <ul>
@@ -18,8 +24,6 @@
         {% endfor %}
     </ul>
 
-    <h3>Enrollment Metrics</h3>
-
     <div class="dropdown-container">
         <label for="semesterSelect">Select Term: </label>
         <select id="semesterSelect">
@@ -28,7 +32,7 @@
             {% endfor %}
         </select>
     </div>
-    
+
     <table border="1">
         <thead>
             <tr>
@@ -46,6 +50,7 @@
             <!-- The data for the selected semester will be populated here by JavaScript -->
         </tbody>
     </table>
+
     
     
 
@@ -73,6 +78,7 @@
                 const selectedTerm = semesterSelect.value;
                 let tableRow = `
                     <tr>
+                        <td data-label="Total">${courseData.total[selectedTerm]}</td>
                         <td data-label="Undergrad">${courseData.ugrad[selectedTerm]}</td>
                         <td data-label="Grad">${courseData.grad[selectedTerm]}</td>
                         <td data-label="Non-Degree">${courseData.nondegree[selectedTerm]}</td>
@@ -80,7 +86,6 @@
                         <td data-label="VUS">${courseData.vus[selectedTerm]}</td>
                         <td data-label="Employee">${courseData.employee[selectedTerm]}</td>
                         <td data-label="Withdraw">${courseData.withdraw[selectedTerm]}</td>
-                        <td data-label="Total">${courseData.total[selectedTerm]}</td>
                     </tr>
                 `;
 

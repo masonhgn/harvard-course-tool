@@ -22,11 +22,8 @@ instructors, courses = initialize_data()
 
 
 
-
-
 instructors_collection = db["instructors"]
 courses_collection = db["courses"]
-
 '''
 instructors_collection.insert_many(instructors)
 courses_collection.insert_many(courses)
@@ -78,9 +75,35 @@ def instructor(slug):
 
 
 def course_summary(course):
-    #this class has mostly been taken by grad students, taking up X% of the enrollment across all semesters.
-    #retention rate
-    #
+    result_string = []
+
+    ugrad_total = sum(course['ugrad'].values())
+    grad_total = sum(course['grad'].values())
+    nondegree_total = sum(course['nondegree'].values())
+    xreg_total = sum(course['xreg'].values())
+    vus_total = sum(course['vus'].values())
+    employee_total = sum(course['employee'].values())
+    withdraw_total = sum(course['withdraw'].values())
+    total_total = sum(course['total'].values())
+
+    if ugrad_total == total_total:
+        result_string.append(" 🧑 This course has only been taken by undergraduate students.")
+    elif grad_total == total_total:
+        result_string.append(" 🧑‍🎓 This course has only been taken by graduate students.")
+    elif ugrad_total > grad_total:
+        ugrad_percent = round((ugrad_total / total_total * 100), 2)
+        result_string.append("🧑‍🎓 This course has mostly been taken by undergraduate students, constituting " + str(ugrad_percent) + "% of total course enrollment.")
+    elif grad_total > ugrad_total:
+        grad_percent = round((grad_total / total_total * 100), 2)
+        result_string.append("🧑 This course has mostly been taken by undergraduate students, constituting " + str(grad_percent) + "% of total course enrollment.")
+    elif grad_total == ugrad_total:
+        result_string.append(" 🧑 An equal number of graduate and undergraduate students have taken this course.")
+    
+    withdraw_percent = round((withdraw_total / total_total * 100), 2)
+    if withdraw_percent > 0.01:
+        result_string.append("🏃‍♂️ " + str(withdraw_percent) + "% of students have withdrawn from this class.")
+
+    return result_string
 
 
 
@@ -91,10 +114,11 @@ def course_summary(course):
 def course_details(course_id):
     # Fetch the course object from the database using course_id
     course = courses_collection.find_one({"course_id": course_id})
+    notes = course_summary(course)
     if not course:
         return "Course not found", 404
 
-    return render_template('course.html', course=course)
+    return render_template('course.html', course=course, notes=notes)
 
 
 @app.route('/courses')

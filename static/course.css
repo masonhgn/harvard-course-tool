@@ -123,6 +123,21 @@ tbody tr:hover {
 }
 
 
+/* Add styling for the gray pill-shaped tag */
+.course-id-tag {
+    background-color: #ccc;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-size: 0.9em;
+    align-self: flex-start; /* Align the tag to the top of the flex container */
+}
+
+.course-title {
+    text-align: center; /* Center-align the text */
+}
+
 
 
 

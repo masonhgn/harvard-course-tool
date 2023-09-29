@@ -91,6 +91,29 @@ footer p {
 }
 
 
+.home-button {
+    background-color: #b33232; /* Button background color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Padding around the button text */
+    border: none; /* Remove button border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background color transition */
+    display: flex; /* Use flexbox to center the button */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    /* Optionally, you can set a fixed width or use 'auto' to fit content */
+    margin: 0 auto !important;
+}
+
+/* Style the button on hover */
+.home-button:hover {
+    background-color: #cb8888; /* Change background color on hover */
+}
+
+
+
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
