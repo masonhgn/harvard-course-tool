@@ -9,11 +9,13 @@
     <div id="conveyorCarousel" class="carousel-container">
         <div class="carousel-track">
             {% for course in popular_courses %}
-            <div class="carousel-tile">
-                <b>{{ course.course_title }}</b><br>
-                {{ course.course_name }}<br>
-                <strong>Total Enrolled (since Spring 2021):</strong> {{ sum(course['total'].values()) }}
-            </div>
+                <a href="{{ url_for('course_details', course_id=course.course_id) }}" style="text-decoration: none; color: black;">
+                    <div class="carousel-tile">
+                        <b>{{ course.course_title }}</b><br>
+                        {{ course.course_name }}<br>
+                        <strong>Total Enrolled (since Spring 2021):</strong> {{ sum(course['total'].values()) }}
+                    </div>
+                </a>
             {% endfor %}
         </div>
     </div>
