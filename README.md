@@ -19,3 +19,16 @@ The website is built using Flask and MongoDB. There was no front-end framework u
 
 I downloaded six of the most recent "Course Enrollment Stats" datasets from the Harvard Open Data Project site, and loaded them in data.py using pandas. There are two objects, Course and Instructor, which I've created specifically to make sense of the datasets, draw interesting metrics, and store everything in my Mongo database.
 
+
+
+### Home Page:
+![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/52a07a5a-f02b-4a12-b6f5-261f2ddf2780)
+
+
+### Professor Detail Page:
+![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/de9acfa1-256f-44ae-b6b0-3b7f92d51728)
+
+### Course Detail Page:
+![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/593ea7f5-5ace-4fea-a1a2-c5616a834a33)
+
+
