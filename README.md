@@ -26,7 +26,8 @@ I downloaded six of the most recent "Course Enrollment Stats" datasets from the 
 
 
 ### Professor Detail Page:
-![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/de9acfa1-256f-44ae-b6b0-3b7f92d51728)
+![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/1c9f1d90-879e-40ec-a4af-e643510c66f8)
+
 
 ### Course Detail Page:
 ![image](https://github.com/masonhgn/harvard-course-tool/assets/73012906/593ea7f5-5ace-4fea-a1a2-c5616a834a33)
