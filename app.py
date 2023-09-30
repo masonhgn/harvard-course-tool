@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 from pymongo import MongoClient
+from urllib.parse import quote_plus
 from data import generate_slug
+import os
 
 from data import initialize_data, generate_slug
 app = Flask(__name__)
@@ -10,9 +12,12 @@ app = Flask(__name__)
 
 #anywhere else:
 #mongod
+username = quote_plus(os.environ.get('MONGO_USERNAME'))
+password = quote_plus(os.environ.get('MONGO_PASSWORD'))
 
+uri = 'mongodb+srv://' + username + ':' + password + '@serverlessinstance0.7i1ayr0.mongodb.net/?retryWrites=true&w=majority'
 
-client = MongoClient('localhost', 27017)
+client = MongoClient(uri)
 
 db = client.flask_db
 todos = db.todos
