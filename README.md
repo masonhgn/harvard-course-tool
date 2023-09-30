@@ -1,5 +1,7 @@
 ## Harvard EasySearch
 
+https://harvardeasysearch.com
+
 This is a search engine that I made specifically for Harvard, combining all courses and instructors into one easily queried database. My goal was to make it easier to find info about 
 instructors and the courses they teach, and present it in a more modern and user friendly way than the real course directory.
 
