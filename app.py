@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 #anywhere else:
 #mongod
-
-client = MongoClient(os.environ.get('MONGO_URI'))
+MONGO_URI = 'mongodb+srv://newuser:1234@serverlessinstance0.7i1ayr0.mongodb.net/?retryWrites=true&w=majority'
+client = MongoClient(MONGO_URI)
 
 db = client.flask_db
 todos = db.todos
