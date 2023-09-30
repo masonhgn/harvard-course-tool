@@ -9,6 +9,10 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 /* Base Styles */
 h1, p {
@@ -64,12 +68,13 @@ h1, p {
 }
 
 .content {
+    width: 70%;
+    margin: 0 auto;
     top: 4vh;
     padding: 20px;
     position: relative;
     flex: 1;
 }
-
 
 
 footer {

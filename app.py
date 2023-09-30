@@ -20,7 +20,7 @@ todos = db.todos
 
 instructors, courses = initialize_data()
 
-
+courses_combined = {course_dict['course_id']: course_dict for course_dict in courses}
 
 instructors_collection = db["instructors"]
 courses_collection = db["courses"]
@@ -28,6 +28,20 @@ courses_collection = db["courses"]
 instructors_collection.insert_many(instructors)
 courses_collection.insert_many(courses)
 '''
+
+
+
+
+
+def fetch_course_name(course_id):
+    found_course = courses_combined[course_id]
+    if found_course is None:
+        print('ERROR: course_name() function returned None because an invalid course_id was passed in.')
+        return ['NULL','NULL']
+    else:
+        return [found_course['course_title'],found_course['course_name']]
+    
+
 
 @app.route('/search')
 def search():
@@ -52,6 +66,10 @@ def index():
     collection = course_names + instructor_names
     return render_template('index.html', collection=collection)
 
+@app.route('/info', methods=['GET'])
+def info():
+    return render_template('info.html')
+
 
 @app.route('/instructors', methods=['GET'])
 def instructors_list():
@@ -66,7 +84,7 @@ def instructor(slug):
     instructor_data = instructors_collection.find_one({'slug': slug})
     if instructor_data:
         # Render the instructor's data using a template
-        return render_template('instructor.html', instructor=instructor_data)
+        return render_template('instructor.html', instructor=instructor_data, fetch_course_name = fetch_course_name)
     else:
         # Alternatively, return a 404 error if the instructor is not found
         return "Instructor not found", 404
@@ -92,20 +110,18 @@ def course_summary(course):
         result_string.append(" 🧑‍🎓 This course has only been taken by graduate students.")
     elif ugrad_total > grad_total:
         ugrad_percent = round((ugrad_total / total_total * 100), 2)
-        result_string.append("🧑‍🎓 This course has mostly been taken by undergraduate students, constituting " + str(ugrad_percent) + "% of total course enrollment.")
+        result_string.append("🧑 This course has mostly been taken by undergraduate students, constituting " + str(ugrad_percent) + "% of total course enrollment.")
     elif grad_total > ugrad_total:
         grad_percent = round((grad_total / total_total * 100), 2)
         result_string.append("🧑 This course has mostly been taken by undergraduate students, constituting " + str(grad_percent) + "% of total course enrollment.")
     elif grad_total == ugrad_total:
-        result_string.append(" 🧑 An equal number of graduate and undergraduate students have taken this course.")
+        result_string.append(" 🧑🧑‍🎓 An equal number of graduate and undergraduate students have taken this course.")
     
     withdraw_percent = round((withdraw_total / total_total * 100), 2)
     if withdraw_percent > 0.01:
         result_string.append("🏃‍♂️ " + str(withdraw_percent) + "% of students have withdrawn from this class.")
 
     return result_string
-
-
 
 
 

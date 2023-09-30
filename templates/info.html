@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>FAQ</h1>
+
+<h3>What is this site?</h3>
+<p>EasySearch is a modern, open-source directory for Harvard courses and instructors. Most online course directories can be tedious and 
+    confusing to use. This site aims to provide a better user experience for this information.
+</p>
+
+<h3>Where does this site get its data?</h3>
+<p>This site gets all data from the <a href="https://www.hodp.org/data">Harvard Open Data Project</a>. Spreadsheets 
+have been manually downloaded and loaded into the database as two main objects: Instructors and Courses.</p>
+
+<h3>When was this created?</h3>
+<p>I started programming this site on September 26th, 2023. This means that until I automate this process, I manually upload 
+    each new semester's "Course Enrollment Stats" dataset from the HODP website and might possibly forget in the future.
+</p>
+
+<h3>How far does this information go back?</h3>
+<p>This information goes back 6 semesters, until Spring of 2021.</p>
+
+{% endblock %}

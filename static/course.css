@@ -1,7 +1,4 @@
-.content {
-    width: 70%;
-    margin: 0 auto;
-}
+
 
 h2, h3 {
     font-family: 'Assistant', sans-serif;
@@ -56,6 +53,10 @@ li {
 a:hover {
     color: #0056b3;
 }
+
+
+
+
 
 /* Compact table styling */
 

@@ -1,0 +1,225 @@
+body {
+    margin: 20px;
+}
+
+
+
+.info-section {
+    margin: 20px auto;
+}
+
+h1, h2 {
+    font-family: 'Assistant', sans-serif;
+    margin-top: 20px;
+    color: #555;
+}
+
+h2 {
+    margin-top: 40px;
+    border-bottom: 2px solid #B22222;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+li {
+    padding: 5px 0;
+}
+
+
+#semesterSelect {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+#semesterSelect:hover {
+    background-color: #e0e0e0;
+}
+
+#semesterSelect:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+
+
+table {
+    width: 100%; /* Ensure it occupies the full width of its parent container */
+    table-layout: auto; /* Let columns adjust their width based on content */
+    border-collapse: collapse; /* Combine adjacent borders */
+}
+
+th, td {
+    padding: 4px 8px; /* Reduced padding */
+    text-align: center; /* Center-align text for better aesthetics */
+    border: 1px solid #ddd; /* Border to visually separate cells */
+    font-size: 0.9em; /* Slightly reduce font size */
+}
+
+th {
+    background-color: #c55858; /* Light background for headers */
+    font-weight: bold;
+}
+
+/* Handle longer content */
+td {
+    word-wrap: break-word; /* Allow wrapping inside cells */
+    max-width: 80px; /* Set a max-width to ensure compactness */
+}
+
+
+tbody tr:hover {
+    background-color: #f7f7f7;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.header-section h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.header-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #777;
+}
+
+a {
+    color: black;
+
+}
+
+.course-row {
+    padding-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+.semester-pill {
+    display: inline-block;
+    padding: 0.3em 0.7em;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    padding-left: 5px;
+}
+
+.fall2021 {
+    background-color: rgb(80, 153, 100);
+}
+
+.spring2021 {
+    background-color: rgb(48, 48, 149);
+}
+
+.fall2022 {
+    background-color: rgb(113, 125, 18);
+}
+
+.spring2022 {
+    background-color: rgb(145, 37, 129);
+}
+
+.fall2023 {
+    background-color: rgb(144, 15, 45);
+}
+
+.spring2023 {
+    background-color: rgb(35, 140, 152);
+}
+
+
+
+.semester-pill {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+    
+    h2, h3 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+
+    /* Table Layout on Mobile */
+    table, tbody {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    thead {
+        display: none;  
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 0.625rem;
+    }
+
+    td {
+        border-top: 1px solid #ddd;
+        display: block;
+        padding: 10px;
+        font-size: 1rem;
+        position: relative;
+        padding-left: 85%;
+    }
+
+    td:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    td:before {
+        content: attr(data-label);
+        display: block;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        color: #555;
+        background-color: #f9f9f9;
+        padding: 5px;
+    }
+}

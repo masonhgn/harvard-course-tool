@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instructor Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .info-section {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
 
-    <h1>Instructor Profile: {{ instructor.name }}</h1>
 
-    <div class="info-section">
-        <h2>Departments</h2>
+
+{% extends "base.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='instructor.css') }}">
+
+    <div class="header-section">
+        <h1>{{ instructor.name }}</h1>
         <ul>
             {% for dept in instructor.departments %}
                 <li>{{ dept }}</li>
@@ -28,52 +14,114 @@
         </ul>
     </div>
 
-    <div class="info-section">
+
+
+    {% set semester_classes = {
+        'fall2021': 'fall2021',
+        'spring2021': 'spring2021',
+        'fall2022': 'fall2022',
+        'spring2022': 'spring2022',
+        'fall2023': 'fall2023',
+        'spring2023': 'spring2023'
+    } %}
+
+    <div class="info-section courses-taught">
         <h2>Courses Taught</h2>
-        <table border="1">
-            <tr>
-                <th>Course ID</th>
-                <th>Semesters Taught</th>
-            </tr>
+        <div class="courses-content">
             {% for course_id, semesters in instructor.courses_taught.items() %}
-                <tr>
-                    <td>{{ course_id }}</td>
-                    <td>{{ ', '.join(semesters) }}</td>
-                </tr>
+            <div class="course-row">
+                <a href="{{ url_for('course_details', course_id=course_id) }}">
+                    <div class="course-name"><b>{{ fetch_course_name(course_id)[0] }}</b>: {{ fetch_course_name(course_id)[1] }}</div>
+                </a>
+                <div class="course-semesters">
+                    {% for semester in semesters %}
+                    <span class="semester-pill {{ semester_classes[semester] }}">{{ semester[:-4] | capitalize }} {{ semester[-4:] }}</span>
+                    {% endfor %}
+                </div>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
-
-    <div class="info-section">
         <h2>Enrollment Data</h2>
-        <table border="1">
-            <tr>
-                <th>Term</th>
-                <th>Undergraduates</th>
-                <th>Graduates</th>
-                <th>NonDegree</th>
-                <th>XReg</th>
-                <th>VUS</th>
-                <th>Employee</th>
-                <th>Withdrawn</th>
-                <th>Total</th>
-            </tr>
-            {% for term, ugrad_count in instructor.ugrad.items() %}
-                <tr>
-                    <td>{{ term }}</td>
-                    <td>{{ ugrad_count }}</td>
-                    <td>{{ instructor.grad[term] }}</td>
-                    <td>{{ instructor.nondegree[term] }}</td>
-                    <td>{{ instructor.xreg[term] }}</td>
-                    <td>{{ instructor.vus[term] }}</td>
-                    <td>{{ instructor.employee[term] }}</td>
-                    <td>{{ instructor.withdraw[term] }}</td>
-                    <td>{{ instructor.total[term] }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-    
+        <div class="dropdown-container">
+            <label for="semesterSelect">Select Term: </label>
+            <select id="semesterSelect">
+                {% set all_terms_set = instructor.ugrad.keys() | list %}
+                {% for term in instructor.grad.keys() %}
+                    {% if term not in all_terms_set %}
+                        {% set _dummy = all_terms_set.append(term) %}
+                    {% endif %}
+                {% endfor %}
 
-</body>
-</html>
+                {% for term in all_terms_set %}
+                    <option value="{{ term }}">{{ term[:-4] | capitalize }} {{ term[-4:] }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+    
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Total</th>
+                    <th>Undergrad</th>
+                    <th>Grad</th>
+                    <th>Non-Degree</th>
+                    <th>XReg</th>
+                    <th>VUS</th>
+                    <th>Employee</th>
+                    <th>Withdraw</th>
+                </tr>
+            </thead>
+            <tbody id="semesterData">
+                <!-- The data for the selected semester will be populated here by JavaScript -->
+            </tbody>
+        </table>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const semesterSelect = document.getElementById('semesterSelect');
+                const semesterData = document.getElementById('semesterData');
+                
+                const courseData = {
+                    // Assuming you can pass the entire course data object to the frontend
+                    // Replace this with the actual data structure you're using
+                    // This is just an example to demonstrate the functionality
+                    total: {{ instructor.total | tojson }},
+                    ugrad: {{ instructor.ugrad | tojson }},
+                    grad: {{ instructor.grad | tojson }},
+                    nondegree: {{ instructor.nondegree | tojson }},
+                    xreg: {{ instructor.xreg | tojson }},
+                    vus: {{ instructor.vus | tojson }},
+                    employee: {{ instructor.employee | tojson }},
+                    withdraw: {{ instructor.withdraw | tojson }}
+                };
+    
+                function updateTable() {
+                    const selectedTerm = semesterSelect.value;
+                    let tableRow = `
+                        <tr>
+                            <td data-label="Total">${courseData.total[selectedTerm]}</td>
+                            <td data-label="Undergrad">${courseData.ugrad[selectedTerm]}</td>
+                            <td data-label="Grad">${courseData.grad[selectedTerm]}</td>
+                            <td data-label="Non-Degree">${courseData.nondegree[selectedTerm]}</td>
+                            <td data-label="XReg">${courseData.xreg[selectedTerm]}</td>
+                            <td data-label="VUS">${courseData.vus[selectedTerm]}</td>
+                            <td data-label="Employee">${courseData.employee[selectedTerm]}</td>
+                            <td data-label="Withdraw">${courseData.withdraw[selectedTerm]}</td>
+                        </tr>
+                    `;
+    
+                    semesterData.innerHTML = tableRow;
+                }
+    
+    
+    
+                semesterSelect.addEventListener('change', updateTable);
+                updateTable(); // Initial table data load
+            });
+    
+        </script>
+{% endblock %}
+    

@@ -441,7 +441,7 @@ Course ID,Course Title,Course Name,Course Section Code,Course Department,Instruc
 116447,CHEM 304,"Theoretical Atomic, Molecular",001,Chemistry & Chemical Biology,"Heller,Eric J.",0,1,0,0,0,0,0,1
 117520,CHEM 315,Photochemistry and Kinetics,001,Chemistry & Chemical Biology,"Anderson,James G.",0,1,0,0,0,0,0,1
 107703,CHEM 320,Chemical Biology,001,Chemistry & Chemical Biology,"Balskus,Emily Patricia",1,12,0,0,0,0,0,13
-111689,CHEM 323,Organic Chemistry,001,Chemistry & Chemical Biology,"Schreiber,Stuart L.",0,1,0,0,0,0,0,1
+111689,CHEM 323,Organic Chemistry,001,Chemistry & Chemical Biology,"Schreiber,Stuart L",0,1,0,0,0,0,0,1
 123927,CHEM 325,Physical Chemistry,001,Chemistry & Chemical Biology,"Friend,Cynthia",0,1,0,0,0,0,0,1
 110219,CHEM 326,Physical Chemistry and Atomic,001,Chemistry & Chemical Biology,"Ni,Kang-Kuen",0,5,0,0,0,0,0,5
 123994,CHEM 330,Physical Chemistry,001,Chemistry & Chemical Biology,"Cohen,Adam Ezra",0,3,0,0,0,0,0,3
@@ -484,7 +484,7 @@ Course ID,Course Title,Course Name,Course Section Code,Course Department,Instruc
 124362,CHEMBIO 350,Graduate Research,020,Chemical Biology,"Wagers,Amy",0,1,0,0,0,0,0,1
 124362,CHEMBIO 350,Graduate Research,021,Chemical Biology,"Liu,David R.",0,14,0,0,0,0,0,14
 124362,CHEMBIO 350,Graduate Research,022,Chemical Biology,"Mazitschek,Ralph",0,2,0,0,0,0,0,2
-124362,CHEMBIO 350,Graduate Research,023,Chemical Biology,"Schreiber,Stuart L.",0,1,0,0,0,0,0,1
+124362,CHEMBIO 350,Graduate Research,023,Chemical Biology,"Schreiber,Stuart L",0,1,0,0,0,0,0,1
 124362,CHEMBIO 350,Graduate Research,024,Chemical Biology,"Cole,Philip Arthur",0,3,0,0,0,0,0,3
 124362,CHEMBIO 350,Graduate Research,025,Chemical Biology,"Silver,Pamela A.",0,1,0,0,0,0,0,1
 124362,CHEMBIO 350,Graduate Research,026,Chemical Biology,"Sorger,Peter",0,1,0,0,0,0,0,1
