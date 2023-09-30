@@ -14,7 +14,7 @@ a {
 }
 
 
-/* Base Styles */
+
 h1, p {
     font-family: 'Assistant', sans-serif;
     margin: 0;
@@ -23,7 +23,7 @@ h1, p {
 
 .header-container {
     position: relative;
-    height: 100px; /* Default height for regular screens */
+    height: 100px;
 }
 
 .header {
@@ -44,7 +44,7 @@ h1, p {
     background-color: #DC143C;
     right: 0;
     left: 5%;
-    z-index: 2; /* Adjusted z-index to make it overlap */
+    z-index: 2; 
 }
 
 .header-left {
@@ -52,19 +52,19 @@ h1, p {
     left: 0;
     right: 5%;
     transform: translateY(15px);
-    z-index: 2; /* Adjusted z-index to make it overlap */
+    z-index: 2; 
 }
 
 .logo {
-    width: 95%; /* Limit the width of the logo container */
+    width: 95%; 
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 3; /* Above the headers */
+    z-index: 3; 
     color: white;
     font-size: 3vw;
     opacity: 1;
-    transform: translate(-50%, -50%); /* Adjust to center both vertically and horizontally */
+    transform: translate(-50%, -50%); 
 }
 
 .content {
@@ -79,13 +79,13 @@ h1, p {
 
 footer {
     opacity: 0.7;
-    background-color: #DC143C; /* Red background color */
-    color: white; /* Text color */
-    padding: 10px; /* Add some padding for better spacing */
-    text-align: center; /* Center-align the text */
-    height: 50%; /* Set the height of the footer */
+    background-color: #DC143C; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+    height: 50%;
     width: 100%;
-    line-height: 1.5; /* Adjust the line height for better text spacing */
+    line-height: 1.5;
     bottom: 0;
     margin-top: 5%;
     margin-bottom: 0;
@@ -97,34 +97,34 @@ footer p {
 
 
 .home-button {
-    background-color: #b33232; /* Button background color */
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Padding around the button text */
-    border: none; /* Remove button border */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Show a pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    transition: background-color 0.3s; /* Smooth background color transition */
-    display: flex; /* Use flexbox to center the button */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    /* Optionally, you can set a fixed width or use 'auto' to fit content */
+    background-color: #b33232;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     margin: 0 auto !important;
 }
 
-/* Style the button on hover */
+
 .home-button:hover {
-    background-color: #cb8888; /* Change background color on hover */
+    background-color: #cb8888; 
 }
 
 
 
 
-/* Media Query for smaller screens */
+
 @media (max-width: 768px) {
     .header {
         line-height: 15vh;
-        align-items: center; /* Add vertical alignment for smaller screens */
+        align-items: center; 
     }
 
     .header-left {
@@ -142,10 +142,10 @@ footer p {
     }
 
     .logo {
-        font-size: 7vw; /* Adjusted font size for smaller screens */
-        min-font-size: 16px; /* Minimum font size to avoid text becoming too small */
-        transform: translate(-50%, -50%); /* Adjust to center both vertically and horizontally */
-        width: 95%; /* Allow the logo container to expand its width */
+        font-size: 7vw; 
+        min-font-size: 16px; 
+        transform: translate(-50%, -50%); 
+        width: 95%; 
     }
 
     footer p {

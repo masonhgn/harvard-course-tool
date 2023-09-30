@@ -74,7 +74,7 @@
                 </tr>
             </thead>
             <tbody id="semesterData">
-                <!-- The data for the selected semester will be populated here by JavaScript -->
+                <!--insert js-->
             </tbody>
         </table>
 
@@ -85,9 +85,7 @@
                 const semesterData = document.getElementById('semesterData');
                 
                 const courseData = {
-                    // Assuming you can pass the entire course data object to the frontend
-                    // Replace this with the actual data structure you're using
-                    // This is just an example to demonstrate the functionality
+
                     total: {{ instructor.total | tojson }},
                     ugrad: {{ instructor.ugrad | tojson }},
                     grad: {{ instructor.grad | tojson }},
@@ -119,7 +117,7 @@
     
     
                 semesterSelect.addEventListener('change', updateTable);
-                updateTable(); // Initial table data load
+                updateTable();
             });
     
         </script>

@@ -10,7 +10,7 @@
     <ul>
         {% for instructor in instructors %}
             <li>
-                <!-- Using the slug to create the hyperlink for each instructor -->
+                
                 <a href="{{ url_for('instructor', slug=instructor['slug']) }}">{{ instructor['name'] }}</a>
             </li>
         {% endfor %}

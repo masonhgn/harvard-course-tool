@@ -3,7 +3,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course.css') }}">
     <br>
     <h1 style="text-align: center;">{{ course.course_name }}</h1>
-    <!-- Add a gray pill-shaped tag for the Course ID -->
     <h2 style="font-weight: bold; text-align: center;">
         {{ course.course_title }}
         <span class="course-id-tag">{{ course.course_id }}</span>
@@ -47,7 +46,7 @@
             </tr>
         </thead>
         <tbody id="semesterData">
-            <!-- The data for the selected semester will be populated here by JavaScript -->
+            <!--insert js stuff-->
         </tbody>
     </table>
 
@@ -61,9 +60,6 @@
             const semesterData = document.getElementById('semesterData');
             
             const courseData = {
-                // Assuming you can pass the entire course data object to the frontend
-                // Replace this with the actual data structure you're using
-                // This is just an example to demonstrate the functionality
                 total: {{ course.total | tojson }},
                 ugrad: {{ course.ugrad | tojson }},
                 grad: {{ course.grad | tojson }},
@@ -95,7 +91,7 @@
 
 
             semesterSelect.addEventListener('change', updateTable);
-            updateTable(); // Initial table data load
+            updateTable();
         });
 
     </script>

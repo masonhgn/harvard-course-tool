@@ -5,13 +5,10 @@ import re
 
 
 def generate_slug(name):
-    # Convert to lowercase
     slug = name.lower()
     
-    # Replace spaces with hyphens
     slug = slug.replace(" ", "-")
     
-    # Remove non-alphanumeric characters (except for hyphens)
     slug = re.sub(r'[^a-z0-9-]', '', slug)
     
     return slug

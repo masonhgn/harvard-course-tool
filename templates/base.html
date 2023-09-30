@@ -6,16 +6,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <title>Harvard EasySearch</title>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D8FDEQFS19"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8FDEQFS19"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-D8FDEQFS19');
-</script>
+    gtag('config', 'G-D8FDEQFS19');
+    </script>
 </head>
 <body>
     <div class="header-container">
@@ -25,7 +27,7 @@
         </div>
     </div>
 
-    <!-- Main content placeholder for pages that inherit from this base -->
+    
     <div class="content">
         <button class="home-button" onclick="window.location.href='{{ url_for('index') }}'">Back to Search</button>
 
@@ -34,7 +36,7 @@
 
 
     <footer>
-        <p>This website is not affiliated with Harvard University or any Harvard faculty/students. All data is publicly available from the Harvard Open Data Project.</p>
+        <p style="width: 95%;">This website is not affiliated with Harvard University or any Harvard faculty/students. All data is publicly available from the Harvard Open Data Project.</p>
     </footer>
 
 </body>

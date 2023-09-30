@@ -4,17 +4,40 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
 
+
+    <h3 style="text-align: center;">Latest Popular Courses</h3>
+    <div id="conveyorCarousel" class="carousel-container">
+        <div class="carousel-track">
+            {% for course in popular_courses %}
+            <div class="carousel-tile">
+                <b>{{ course.course_title }}</b><br>
+                {{ course.course_name }}<br>
+                <strong>Total Enrolled (since Spring 2021):</strong> {{ sum(course['total'].values()) }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
     <br>
     <br>
-    <a href="{{ url_for('info') }}"><p style="text-align: center; color: rgb(35, 134, 221);">Info/FAQ</p></a>
+
+    <img width=128px height=128px style="display: block; margin: 0 auto;" src="{{ url_for('static', filename='img/logo.png') }}">
+
+
+    
     <p style="text-align: center; color: rgb(118, 118, 118);">Harvard EasySearch is a modern, easy to use database of all Harvard courses and instructors.</p>
 
-    <p style="text-align: center; color: rgb(118, 118, 118);">Use the search bar below to find any course or instructor.</p>
     <br>
+
+
+
+
+    <p style="text-align: center; color: rgb(118, 118, 118);">Use the search bar below to find any course or instructor.</p>
     <div class="search-container">
         <form id="search-form">
             <input type="text" id="search-bar" placeholder="Search for a course or instructor...">
-            <button type="submit">Search</button> <!-- Added 'Search' text to button -->
+            <button type="submit">Search</button> 
         </form>
     </div>
     
@@ -27,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Search results will be appended here -->
+
             </tbody>
         </table>
     </div>
@@ -36,6 +59,45 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const tiles = track.querySelectorAll('.carousel-tile');
+            const tileWidth = tiles[0].getBoundingClientRect().width;
+
+            let offset = 0;
+
+            function moveTiles() {
+                offset += 0.3; //speed for carousel
+
+                if (offset >= tileWidth) {
+                    //infinite rotating effect
+                    const firstTile = track.querySelector('.carousel-tile');
+                    track.appendChild(firstTile);
+                    offset -= tileWidth;
+                }
+
+                track.style.transform = `translateX(-${offset}px)`;
+                requestAnimationFrame(moveTiles);
+            }
+
+            moveTiles();
+        });
+
+
+
+
+
+
+
+
+
+
+
         $(function() {
             var availableSections = {{ collection|default([])|tojson|safe }};
             function split(val) {

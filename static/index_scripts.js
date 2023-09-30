@@ -6,14 +6,14 @@ function search() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     let results = '';
 
-    // Search through instructors
+    //search instructors
     for (const instructor of instructors) {
         if (instructor.toLowerCase().includes(input)) {
             results += `<p>${instructor}</p>`;
         }
     }
 
-    // Search through courses
+    //search courses
     for (const course of courses) {
         if (course.toLowerCase().includes(input)) {
             results += `<p>${course}</p>`;

@@ -1,6 +1,6 @@
-/* Search Container Styles */
+
 .search-container {
-    text-align: center; /* Center-align the search bar */
+    text-align: center; 
     margin-top: 20px;
     margin: 0 auto;
     width: 60%;
@@ -8,27 +8,27 @@
 
 
 
-/* Search Bar Styles */
+
 #search-bar {
-    padding: 10px; /* Add some padding for better appearance */
-    font-size: 18px; /* Adjust font size */
-    border: 1px solid #ccc; /* Add a border for better visibility */
-    border-radius: 5px; /* Add rounded corners */
-    outline: none; /* Remove the default input outline */
+    padding: 10px; 
+    font-size: 18px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    outline: none; 
 }
 
-/* Search Button Styles */
+
 #search-form button {
-    background-color: #DC143C; /* Red background color */
-    color: white; /* Text color */
-    border: none; /* Remove the default button border */
-    padding: 10px 20px; /* Add padding for better appearance */
-    font-size: 18px; /* Adjust font size */
-    border-radius: 5px; /* Add rounded corners */
-    cursor: pointer; /* Add a pointer cursor on hover */
+    background-color: #DC143C; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 18px; 
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 
-/* Adjust the layout of search bar and button */
+
 #search-form {
     display: flex;
     justify-content: center;
@@ -38,10 +38,9 @@
 
 #search-bar {
     flex: 1;
-    margin-right: 10px; /* Add some spacing between search bar and button */
+    margin-right: 10px; 
 }
 
-/* Results Styles */
 #results {
     margin-top: 20px;
     margin-bottom: 30px;
@@ -49,17 +48,17 @@
 }
 
 #results h3 {
-    font-size: 24px; /* Adjust font size for result headings */
+    font-size: 24px; 
 }
 
 #results ul {
-    list-style-type: none; /* Remove bullet points from lists */
+    list-style-type: none; 
     padding: 0;
 }
 
 #results li {
-    font-size: 18px; /* Adjust font size for list items */
-    margin-bottom: 10px; /* Add spacing between list items */
+    font-size: 18px;
+    margin-bottom: 10px; 
 }
 
 
@@ -71,8 +70,8 @@
 
 
 #search-results-table {
-    width: 90%; /* Reduce to your preferred width */
-    margin: 0 auto; /* To center the table if needed */
+    width: 90%; 
+    margin: 0 auto; 
     border-collapse: collapse;
 }
 
@@ -93,7 +92,47 @@
 .search-result-item {
     cursor: pointer;
     color: rgb(4, 4, 8);
-    text-decoration: none; /* Updated */
+    text-decoration: none; 
+}
+
+
+
+
+
+
+.carousel-container {
+    width: 70%;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    
+}
+
+.carousel-track {
+    display: flex;
+    white-space: nowrap;
+}
+
+.carousel-tile {
+    flex: 0 0 calc(100% / 5);
+    height: 100px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 20px;
+    border: 1px solid #7e7e7e;
+    margin: 5px;
+    background-color: #f1f1f1;
+}
+
+
+@keyframes moveConveyor {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); 
+    }
 }
 
 
@@ -104,10 +143,19 @@
 
 
 
-
-
-
 @media (max-width: 768px) { 
+    .carousel-container {
+        width: 100%;
+    }
+    .carousel-tile {
+        flex: 0 0 calc(100% / 10);
+        padding: 10px;
+    }
+
+    .carousel-tile strong {
+        font-size: 15px;
+    }
+
     .search-container {
         width: 95%;
     }
