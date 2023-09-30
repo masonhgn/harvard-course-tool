@@ -29,10 +29,10 @@ courses_combined = {course_dict['course_id']: course_dict for course_dict in cou
 
 instructors_collection = db["instructors"]
 courses_collection = db["courses"]
-'''
+
 instructors_collection.insert_many(instructors)
 courses_collection.insert_many(courses)
-'''
+
 
 
 
