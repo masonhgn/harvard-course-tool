@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 from urllib.parse import quote_plus
 from data import generate_slug
 import os
@@ -13,7 +14,7 @@ app = Flask(__name__)
 #anywhere else:
 #mongod
 MONGO_URI = 'mongodb+srv://newuser:1234@serverlessinstance0.7i1ayr0.mongodb.net/?retryWrites=true&w=majority'
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGO_URI,server_api=ServerApi('1'))
 
 db = client.flask_db
 todos = db.todos
@@ -25,10 +26,10 @@ courses_combined = {course_dict['course_id']: course_dict for course_dict in cou
 
 instructors_collection = db["instructors"]
 courses_collection = db["courses"]
-
+'''
 instructors_collection.insert_many(instructors)
 courses_collection.insert_many(courses)
-
+'''
 
 
 
